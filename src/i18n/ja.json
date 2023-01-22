@@ -1,0 +1,7 @@
+{
+    "header": {
+        "signin": "ログイン",
+        "refreshToken": "リフレッシュトークン",
+        "stockList": "株一覧"
+    }
+}
