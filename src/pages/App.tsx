@@ -1,9 +1,24 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Header } from "../components/header";
+import { pageList } from "../libs/pageList";
+import Home from "./Home";
+import RefreshToken from "./RefreshToken";
+import StockList from "./StockList";
 
 function App() {
     return (
         <>
-            <h1 className="text-3xl font-bold underline">Hello world!</h1>
+            <BrowserRouter>
+                <Header />
+                <Routes>
+                    {pageList.map((page, key) => (
+                        <Route
+                            path={page.path}
+                            element={page.component}
+                        ></Route>
+                    ))}
+                </Routes>
+            </BrowserRouter>
         </>
     );
 }
