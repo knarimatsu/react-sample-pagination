@@ -3,5 +3,17 @@
         "signin": "ログイン",
         "refreshToken": "リフレッシュトークン",
         "stockList": "株一覧"
+    },
+    "pages": {
+        "home": {
+            "title": "Home"
+        },
+        "refreshToken": {
+            "title": "RefreshToken",
+            "getTokenButton": "Token取得"
+        },
+        "stock": {
+            "title": "stock"
+        }
     }
 }
