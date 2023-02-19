@@ -10,7 +10,9 @@
         },
         "refreshToken": {
             "title": "RefreshToken",
-            "getTokenButton": "Token取得"
+            "getTokenButton": "Token取得",
+            "idToken": "IDトークン",
+            "getIdTokenButton": "IDトークン取得"
         },
         "stock": {
             "title": "stock"
