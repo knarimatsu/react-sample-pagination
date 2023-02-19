@@ -1,22 +1,32 @@
-import axios from "axios";
+import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { useRecoilState } from "recoil";
 import { refreshTokenState } from "../libs/recoilAtoms";
-import { callApi } from "../libs/useApi";
+import { getIdTokenAPI, getRefreshTokenAPI } from "../modules/api";
 
 export const RefreshToken = () => {
     const { t } = useTranslation();
+
+    const { register, handleSubmit, watch } = useForm();
+    const onSubmit = (data: any) => getIdToken(data.refreshToken);
     const [refreshToken, setRefreshToken] = useRecoilState(refreshTokenState);
+    /**
+     * getRefreshToken
+     * @returns {Promise} refreshToken
+     */
     const getRefreshToken = async () => {
-        axios
-            .post("https://api.jpx-jquants.com/v1/token/auth_user", {
-                mailaddress: import.meta.env.VITE_EMAIL,
-                password: import.meta.env.VITE_PASSWORD,
-            })
-            .then((res: any) => {
-                setRefreshToken(res.data.refreshToken);
-            });
+        const result = await getRefreshTokenAPI();
+        setRefreshToken(result.refreshToken);
     };
+    /**
+     * getIdToken
+     * @param {string} refreshToken
+     * @returns {Promise} idToken
+     */
+    const getIdToken = async (refreshToken: string) => {
+        const result = await getIdTokenAPI(refreshToken);
+    };
+
     const copyRefreshToken = () => {
         navigator.clipboard.writeText(refreshToken);
     };
@@ -60,6 +70,21 @@ export const RefreshToken = () => {
                     </div>
                 </div>
             ) : null}
+            <h1 className="mx-3 mt-3 text-3xl font-bold underline">
+                {t("pages.refreshToken.idToken")}
+            </h1>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <input
+                    className="mx-3 mt-3 px-3 py-2 border rounded"
+                    type="text"
+                    {...register("refreshToken")}
+                />
+                <input
+                    className="mx-3 mt-3 px-3 py-2 border rounded"
+                    type="submit"
+                    value={t("pages.refreshToken.getIdTokenButton") as string}
+                />
+            </form>
         </>
     );
 };
