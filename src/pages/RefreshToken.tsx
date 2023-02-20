@@ -18,6 +18,7 @@ export const RefreshToken = () => {
      */
     const getRefreshToken = async () => {
         const result = await getRefreshTokenAPI();
+        sessionStorage.setItem("refreshToken", result.refreshToken);
         setRefreshToken(result.refreshToken);
     };
 
@@ -29,6 +30,7 @@ export const RefreshToken = () => {
     const getIdToken = async (refreshToken: string) => {
         const result = await getIdTokenAPI(refreshToken);
         setIdToken(result.idToken);
+        sessionStorage.setItem("idToken", result.idToken);
     };
 
     const copyRefreshToken = () => {
@@ -88,7 +90,7 @@ export const RefreshToken = () => {
                     {...register("refreshToken")}
                 />
                 <input
-                    className="mx-3 mt-3 px-3 py-2 border rounded"
+                    className="mx-3 mt-3 px-3 py-2 border rounded cursor-pointer"
                     type="submit"
                     value={t("pages.refreshToken.getIdTokenButton") as string}
                 />
