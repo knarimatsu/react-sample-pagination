@@ -1,8 +1,16 @@
 import { useForm } from "react-hook-form";
+import { getStockListAPI } from "../modules/api";
 
 const StockList = () => {
     const { register, handleSubmit, watch } = useForm();
-    const onSubmit = (data: any) => console.log(data);
+    const idToken = sessionStorage.getItem("idToken");
+    const onSubmit = () => {
+        getStockList();
+    };
+    const getStockList = async () => {
+        const result = await getStockListAPI(idToken as string);
+        console.log(result.info);
+    };
     return (
         <>
             <h1 className="text-3xl font-bold underline">Stock List</h1>
